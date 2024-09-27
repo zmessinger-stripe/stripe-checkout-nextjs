@@ -50,6 +50,7 @@ export async function GET(req: NextRequest) {
             lineItems: lineItems.data,
             date: new Date().toLocaleDateString(),
         })
+
         // Return to client
         return new Response(body);
     } catch (err: any) {
