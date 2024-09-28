@@ -1,8 +1,6 @@
 export interface CartItem {
-    price_id: string;
+    price: string;
     quantity: number;
 }
   
-export interface Cart {
-    items: CartItem[];
-}
+export type Cart = CartItem[]

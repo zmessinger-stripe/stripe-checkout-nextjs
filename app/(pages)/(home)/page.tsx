@@ -1,11 +1,12 @@
 "use client"
 
 import { useState, useEffect } from 'react';
-import { createCart, Cart } from "@/lib/helpers"
+import { createCart} from "@/lib/helpers"
+import { Cart } from '@/app/types/cart';
 import Header from "./components/Header"
 import CartCard from './components/CartCard';
 import CheckoutCard from './components/CheckoutCard';
-
+import { saveCartToSession,  loadCartFromSession} from '@/lib/security';
 // Static options for conditionally rendering the buttons
 const options = [
   {
@@ -31,9 +32,23 @@ const options = [
 export default function Home() {
 	const [cart, setCart] = useState<Cart>([])
 
-	useEffect(() => setCart(createCart), [])
+	// Load Cart
+	useEffect(() => {
+		if (!sessionStorage.getItem('cart')) {
+			const cart = createCart();
+			saveCartToSession(cart)
+			setCart(cart)
+		} else {
+			let cart = loadCartFromSession()
+			setCart(cart ?? [])
+		}
+	}, [])
 
-	const refreshCart = () => { setCart(createCart())}
+	const refreshCart = () => { 
+		const cart = createCart();
+		saveCartToSession(cart)
+		setCart(cart)
+	}
 
 	return (
 		<div className="grid grid-rows-[auto_1fr_auto] min-h-screen p-4 sm:p-8 md:px-20 gap-8 font-[family-name:var(--font-geist-sans)]">
@@ -45,7 +60,7 @@ export default function Home() {
 				{/* Checkout Cards */}
 				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full max-w-6xl">
 					{options.map(function(option, idx) {
-						return <CheckoutCard option={option} idx={idx}/>
+						return <CheckoutCard key={idx} option={option} idx={idx} cart={cart}/>
 					})}
 				</div>
 			</main>

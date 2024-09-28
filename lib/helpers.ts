@@ -1,3 +1,5 @@
+import { Cart } from "@/app/types/cart";
+
 /**
  * Calculates the total order amount from the provided items
  *
@@ -16,13 +18,6 @@ export const calculateOrderAmount = (items: any) => {
     return 1400;
 };
 
-export interface CartItem {
-    price_id: string;
-    quantity: number;
-}
-  
-export type Cart = CartItem[]
-
 /**
  * Randomly generates a cart for checkout
  *
@@ -39,9 +34,9 @@ export const createCart = () => {
     let cart: Cart = []
 
     // Randomly generate a quantity betweeen 0 and 3 for each item
-    prices.forEach(price_id => {
+    prices.forEach(price => {
         let quantity = Math.floor(Math.random() * 4) + 1;
-        cart.push({ price_id, quantity })
+        cart.push({ price, quantity })
     })
 
     return cart

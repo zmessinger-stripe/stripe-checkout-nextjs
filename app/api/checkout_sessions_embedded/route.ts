@@ -4,15 +4,17 @@ import { NextRequest } from 'next/server';
 // Init stripe
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-// Dummy product
-const product = { price: 'price_1Q3NdpBFIW304bYiRQbdephu', quantity: 1 };
-
 export async function POST(req: NextRequest) {
     try {
+        // Parse the JSON body from the request
+        const body = await req.json();
+        const { cart } = body;
+        if (!cart || !Array.isArray(cart) || cart.length === 0) throw new Error("Invalid or Empty Cart")
+            
         // Create Checkout Sessions
         const session = await stripe.checkout.sessions.create({
             ui_mode: 'embedded',
-            line_items: [product],
+            line_items: cart,
             mode: 'payment',
             return_url: `${req.headers.get('origin')}/order-confirmation?session_id={CHECKOUT_SESSION_ID}`,
           });

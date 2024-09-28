@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import Link from "next/link";
 import ButtonWrapper from "./ButtonWrapper";
+import { Cart } from "@/app/types/cart";
 
 interface CheckoutOption {
     title: string;
@@ -12,10 +13,11 @@ interface CheckoutOption {
 
 interface CartCardProps {
 	option: CheckoutOption;
+    cart: Cart;
     idx: number
 }
 
-const CheckoutCard: React.FC<CartCardProps> = ({ option, idx }) => {
+const CheckoutCard: React.FC<CartCardProps> = ({ option, idx, cart }) => {
     return (
         <Card key={idx} className="flex flex-col h-full">
             <CardHeader>
@@ -30,7 +32,7 @@ const CheckoutCard: React.FC<CartCardProps> = ({ option, idx }) => {
                     View Docs
                 </Button>
                 </Link>
-                {ButtonWrapper(option.title, 
+                {ButtonWrapper(option.title, cart,
                     <Button className="w-full bg-black hover:bg-gray-600 text-white" type="submit" role="link">
                         {option.buttonText}
                     </Button>

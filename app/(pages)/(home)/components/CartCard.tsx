@@ -2,7 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { RefreshCw } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card"
-import { Cart, CartItem } from "@/lib/helpers";
+import { Cart, CartItem } from '@/app/types/cart';
 import { Loader2 } from "lucide-react"
 
 interface CartCardProps {
@@ -24,7 +24,7 @@ const CartCard: React.FC<CartCardProps> = ({ cart, refreshCart }) => {
 						) : (
 							cart.map((item: CartItem, id: number) => (
                                 <Badge key={id} variant="secondary" className="whitespace-nowrap">
-                                    {item.price_id} x {item.quantity}
+                                    {item.price} x {item.quantity}
                                 </Badge>
 							))
 						)}

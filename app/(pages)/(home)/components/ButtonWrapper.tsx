@@ -1,10 +1,12 @@
 import Link from "next/link";
+import { Cart } from "@/app/types/cart";
 
-const ButtonWrapper = (option: string, children: React.ReactNode) => {
+const ButtonWrapper = (option: string, cart: Cart, children: React.ReactNode) => {
     switch (option.toLowerCase()) {
         case 'hosted':
             return (
                 <form action="/api/checkout_sessions_hosted" method="POST" className="w-full">
+                    <input type="hidden" name="cart"  value={JSON.stringify(cart)} />
                     {children}
                 </form>
             );
