@@ -26,12 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <div className="grid grid-rows-[auto_1fr_auto] min-h-screen p-4 sm:p-8 md:p-20 gap-8 font-[family-name:var(--font-geist-sans)]">
           {children}
-          <footer className="row-start-3 text-center py-4">
-              <p><span className="bold">Stripe Checkout</span> by Zac Messinger</p>
-          </footer>
-        </div>
       </body>
     </html>
   );

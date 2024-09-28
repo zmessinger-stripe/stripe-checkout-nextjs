@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const getButtonWrapper = (option: string, children: React.ReactNode) => {
+const ButtonWrapper = (option: string, children: React.ReactNode) => {
     switch (option.toLowerCase()) {
         case 'hosted':
             return (
@@ -10,15 +10,19 @@ const getButtonWrapper = (option: string, children: React.ReactNode) => {
             );
         case 'embedded':
             return (
-                <Link href="/embedded_checkout" className="w-full">
+                <Link href="/checkout-embedded" className="w-full">
                     {children}
                 </Link>
             );
         case 'custom':
-            return children;
+            return (
+                <Link href="/checkout-custom" className="w-full">
+                    {children}
+                </Link>
+            )
         default:
             return children;
     }
 };
 
-export default getButtonWrapper
+export default ButtonWrapper;

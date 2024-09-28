@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
             ui_mode: 'embedded',
             line_items: [product],
             mode: 'payment',
-            return_url: `${req.headers.get('origin')}/confirmation?session_id={CHECKOUT_SESSION_ID}`,
+            return_url: `${req.headers.get('origin')}/order-confirmation?session_id={CHECKOUT_SESSION_ID}`,
           });
 
         // Return to Stripe client secret in order mount checkout component
