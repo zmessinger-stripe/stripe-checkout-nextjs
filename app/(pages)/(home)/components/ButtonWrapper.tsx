@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Cart } from "@/app/types/cart";
+import { Cart } from "@/app/types";
 
 const ButtonWrapper = (option: string, cart: Cart, children: React.ReactNode) => {
     switch (option.toLowerCase()) {

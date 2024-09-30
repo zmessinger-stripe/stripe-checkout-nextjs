@@ -2,7 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { RefreshCw } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card"
-import { Cart, CartItem } from '@/app/types/cart';
+import { Cart, CartItem } from '@/app/types';
 import { Loader2 } from "lucide-react"
 
 interface CartCardProps {

@@ -1,22 +1,49 @@
-import { Cart } from "@/app/types/cart";
+import { Cart, FetchCartResponse, UpdatedCartItem } from "@/app/types";
+
+// Import the Stripe library if not already imported
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 /**
  * Calculates the total order amount from the provided items
  *
- * @param {number} items - The amount returned from the Stripe API
- * @returns {string} Returns the formatted string
+ * @param {Cart} cart - The amount returned from the Stripe API
+ * @returns {object} Returns the formatted string
  *
  * @example
  * // returns '$10.00'
  * calculateOrderAmount({ });
  */
 
-export const calculateOrderAmount = (items: any) => {
-    // Replace this constant with a calculation of the order's amount
-    // Calculate the order total on the server to prevent
-    // people from directly manipulating the amount on the client
-    return 1400;
-};
+
+export async function fetchCart(cart: Cart): Promise<FetchCartResponse> {
+    let totalAmount = 0;
+    let currency: string | null = null;
+    let updatedCart: UpdatedCartItem[] = [];
+    // Fetch all prices concurrently
+    const pricePromises = cart.map((item) => stripe.prices.retrieve(item.price, { expand: ['product'] }));
+    const prices = await Promise.all(pricePromises);
+    
+    cart.forEach((item, idx) => {
+        const price = prices[idx]
+
+        if (!price || !price.unit_amount || !price.currency) throw new Error(`Invalid price ID: ${item.price}`);
+        if (currency && price.currency !== currency) throw new Error('Mixed currency orders are not supported.');
+        // Update currency
+        currency = price.currency;
+        const amount = price.unit_amount * item.quantity;
+        // Update total amount
+        totalAmount += amount;
+        // Push item to updated cart
+        updatedCart.push({ 
+            ...item, 
+            amount, 
+            name: price.product.name, 
+            description: price.product.description })
+    })
+
+    return { totalAmount, currency, updatedCart };
+}
+
 
 /**
  * Randomly generates a cart for checkout

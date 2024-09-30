@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import Link from "next/link";
 import ButtonWrapper from "./ButtonWrapper";
-import { Cart } from "@/app/types/cart";
+import { Cart } from "@/app/types";
 
 interface CheckoutOption {
     title: string;

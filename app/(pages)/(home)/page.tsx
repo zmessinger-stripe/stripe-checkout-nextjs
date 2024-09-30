@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { createCart} from "@/lib/helpers"
-import { Cart } from '@/app/types/cart';
+import { Cart } from '@/app/types';
 import Header from "./components/Header"
 import CartCard from './components/CartCard';
 import CheckoutCard from './components/CheckoutCard';

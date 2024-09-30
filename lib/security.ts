@@ -1,4 +1,4 @@
-import { Cart } from "@/app/types/cart";
+import { Cart } from "@/app/types";
 // Import Encryption Key
 const ENCRYPTION_KEY = "SECRET_KEY_1234"
 

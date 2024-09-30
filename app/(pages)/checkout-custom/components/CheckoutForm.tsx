@@ -1,17 +1,11 @@
 "use client"
 
 import { useState } from "react";
-import {
-  PaymentElement,
-  useStripe,
-  useElements
-} from "@stripe/react-stripe-js";
+import { PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js";
 
 export default function CheckoutForm({dpmCheckerLink}) {
   const stripe = useStripe();
   const elements = useElements();
-
-
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -48,9 +42,7 @@ export default function CheckoutForm({dpmCheckerLink}) {
     setIsLoading(false);
   };
 
-  const paymentElementOptions = {
-    layout: "tabs",
-  };
+  const paymentElementOptions = { layout: "tabs" };
 
   return (
     <>
