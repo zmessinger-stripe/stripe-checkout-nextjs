@@ -1,29 +1,33 @@
 import Link from "next/link";
-import { Cart } from "@/app/types";
+import { CartProps} from "@/app/types";
 
-const ButtonWrapper = (option: string, cart: Cart, children: React.ReactNode) => {
+const ButtonWrapper = (option: string, action: string, cart: CartProps, children: React.ReactNode) => {
     switch (option.toLowerCase()) {
         case 'hosted':
             return (
-                <form action="/api/checkout_sessions_hosted" method="POST" className="w-full">
+                <form action={action} method="POST" className="w-1/2">
                     <input type="hidden" name="cart"  value={JSON.stringify(cart)} />
                     {children}
                 </form>
             );
         case 'embedded':
             return (
-                <Link href="/checkout-embedded" className="w-full">
+                <Link href={action} className="w-1/2">
                     {children}
                 </Link>
             );
         case 'custom':
             return (
-                <Link href="/checkout-custom" className="w-full">
+                <Link href="/checkout-custom" className="w-1/2">
                     {children}
                 </Link>
             )
         default:
-            return children;
+            return (
+                <Link href="/checkout-custom" className="w-1/2">
+                    {children}
+                </Link>
+            )
     }
 };
 

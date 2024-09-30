@@ -4,9 +4,9 @@ import { Check } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatStripeAmount } from "@/lib/formatters";
 import Link from "next/link";
-import { OrderDetails } from "../types/OrderDetails";
+import { OrderDetailsProps } from "@/app/types";
 
-const OrderDetailsCard = ({ orderDetails }: { orderDetails: OrderDetails }) => (
+export const OrderDetailsCard = ({ orderDetails }: { orderDetails: OrderDetailsProps }) => (
     <Card className="w-full">
         <CardHeader className="text-center">
             <div className="mx-auto bg-green-100 rounded-full p-3 mb-4">
@@ -64,5 +64,3 @@ const OrderDetailsCard = ({ orderDetails }: { orderDetails: OrderDetails }) => (
         </CardFooter>
     </Card>
 );
-
-export default OrderDetailsCard

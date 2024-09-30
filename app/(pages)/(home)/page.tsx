@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { createCart} from "@/lib/helpers"
-import { Cart } from '@/app/types';
+import { CartProps } from '@/app/types';
 import Header from "./components/Header"
 import CartCard from './components/CartCard';
 import CheckoutCard from './components/CheckoutCard';
@@ -12,25 +12,35 @@ const options = [
   {
     title: "Hosted",
     description: "Explore a full, working code sample of an integration with Stripe Checkout where customers click a button on your site and get redirected to a payment page hosted by Stripe.",
-    buttonText: "Select Hosted",
+    buttonText: "Select Option",
+	action: "/api/create-session-hosted",
     link: "https://docs.stripe.com/checkout/quickstart"
   },
   {
     title: "Embedded",
     description: "Explore a full, working code sample of an integration with Stripe Checkout that lets your customers pay through an embedded form on your website.",
-    buttonText: "Select Embedded",
+    buttonText: "Select Option",
+	action: "/checkout-embedded",
     link: "https://docs.stripe.com/checkout/embedded/quickstart"
   },
   {
     title: "Custom",
-    description: "Explore a a checkout form with Stripe's Web or Mobile elements to accept payments.",
-    buttonText: "Select Custom",
+    description: "Explore a a checkout form with Stripe's Web or Mobile elements to accept payments. This option covers creating the payment intent upon render of the payment element.",
+    buttonText: "Select Option",
+	action: "/checkout-custom",
     link: "https://docs.stripe.com/payments/quickstart"
-  }
+  },
+  {
+    title: "Deferred",
+    description: "Explore a a checkout form with Stripe's Web or Mobile elements to accept payments. This option covers creating the payment intent submition payment element.",
+    buttonText: "Select Option",
+	action: "/checkout-embedded",
+    link: "https://docs.stripe.com/payments/accept-a-payment-deferred?platform=web&type=payment#web-fulfillment"
+  },
 ]
 
 export default function Home() {
-	const [cart, setCart] = useState<Cart>([])
+	const [cart, setCart] = useState<CartProps>([])
 
 	useEffect(() => {
 		if (!sessionStorage.getItem('cart')) {
@@ -58,7 +68,7 @@ export default function Home() {
 				{/* Cart Display */}
 				<CartCard cart={cart} refreshCart={refreshCart}/>
 				{/* Checkout Cards */}
-				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full max-w-6xl">
+				<div className="grid grid-cols-4 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full max-w-6xl">
 					{options.map(function(option, idx) {
 						return <CheckoutCard key={idx} option={option} idx={idx} cart={cart}/>
 					})}

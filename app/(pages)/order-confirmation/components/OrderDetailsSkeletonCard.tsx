@@ -1,7 +1,7 @@
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
-const OrderDetailsSkeletonCard = () => { 
+export const OrderDetailsSkeletonCard = () => { 
     return (
         <Card className="w-full">
             <CardHeader className="text-center">
@@ -22,5 +22,3 @@ const OrderDetailsSkeletonCard = () => {
         </Card>
     )
 }
-
-export default OrderDetailsSkeletonCard

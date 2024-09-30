@@ -2,10 +2,10 @@ import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator"
-import { UpdatedCartItem } from "@/app/types";
+import { UpdatedCartItemProps } from "@/app/types";
 import { formatStripeAmount } from "@/lib/formatters";
 
-export const CartSection = ({ cart, amount }: { cart: UpdatedCartItem[], amount: number}) => {
+export const CartSection = ({ cart, amount }: { cart: UpdatedCartItemProps[], amount: number}) => {
     console.log(cart, amount)
     return (
         <div className="w-1/2 bg-black p-8 text-white">

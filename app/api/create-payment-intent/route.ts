@@ -18,15 +18,13 @@ export async function POST(req: NextRequest) {
             automatic_payment_methods: { enabled: true }, // specifying the `automatic_payment_methods` parameter is optional because Stripe enables its functionality by default.
             metadata: {  cart: JSON.stringify(updatedCart) } // Store full cart in metadata for an itemized reference of what is getting purchased.
         }, { idempotencyKey: cart_id });
-        
+
         // The 'idempotencyKey' parameteter aligns a paymentIntent with a given cartId. This make sure if that if the user
         // exits the cart & returns (e.g updates the cart), a new paymentIntent is not created.
         return new Response(JSON.stringify({
             clientSecret: paymentIntent.client_secret,
             cart: updatedCart,
             amount: paymentIntent.amount,
-            // [DEV]: For demo purposes only, you should avoid exposing the PaymentIntent ID in the client-side code.
-            dpmCheckerLink: `https://dashboard.stripe.com/settings/payment_methods/review?transaction_id=${paymentIntent.id}`,
           }));
         
         } catch (err: any) {

@@ -1,4 +1,4 @@
-import { Cart, FetchCartResponse, UpdatedCartItem } from "@/app/types";
+import { CartProps, FetchCartResponse, UpdatedCartItemProps } from "@/app/types";
 import { v4 as uuidv4 } from 'uuid';
 // Import the Stripe library if not already imported
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
@@ -15,10 +15,10 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
  */
 
 
-export async function fetchCart(cart: Cart): Promise<FetchCartResponse> {
+export async function fetchCart(cart: CartProps): Promise<FetchCartResponse> {
     let totalAmount = 0;
     let currency: string | null = null;
-    let updatedCart: UpdatedCartItem[] = [];
+    let updatedCart: UpdatedCartItemProps[] = [];
     // Fetch all prices concurrently
     const pricePromises = cart.map((item) => stripe.prices.retrieve(item.price, { expand: ['product'] }));
     const prices = await Promise.all(pricePromises);
@@ -58,7 +58,7 @@ export async function fetchCart(cart: Cart): Promise<FetchCartResponse> {
 
 export const createCart = () => {
     const prices = ["price_1Q3ojSBFIW304bYi5KqP7yKT", "price_1Q3NdpBFIW304bYiRQbdephu"];
-    let cart: Cart = []
+    let cart: CartProps = []
     
     // Randomly generate a quantity betweeen 0 and 3 for each item
     prices.forEach(price => {

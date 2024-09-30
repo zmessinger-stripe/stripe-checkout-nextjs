@@ -3,13 +3,13 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
-import OrderDetailsSkeletonCard from './components/OrderDetailsSkeletonCard';
-import OrderDetailsCard from './components/OrderDetailsCard';
-import { OrderDetails } from "./types/OrderDetails";
+import { OrderDetailsSkeletonCard } from './components/OrderDetailsSkeletonCard';
+import { OrderDetailsCard } from './components/OrderDetailsCard';
+import { OrderDetailsProps } from "@/app/types";
 
 const OrderConfirmationPage = () => {
 	const [isLoading, setIsLoading] = useState(true);
-	const [orderDetails, setOrderDetails] = useState<OrderDetails | null>(null);
+	const [orderDetails, setOrderDetails] = useState<OrderDetailsProps | null>(null);
 	const router = useRouter();
 
 	useEffect(() => {

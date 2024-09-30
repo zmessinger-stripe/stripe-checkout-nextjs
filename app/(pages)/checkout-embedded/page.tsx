@@ -16,7 +16,7 @@ export default function Embedded() {
   	const fetchClientSecret = useCallback(async () => {
 		try {
 			let cart = loadCartFromSession()
-			const response = await axios.post("/api/checkout_sessions_embedded", { cart });
+			const response = await axios.post("/api/create-session-embedded", { cart });
 			return response.data.clientSecret;
 		} catch (error) {
 			console.error("Error fetching client secret:", error);

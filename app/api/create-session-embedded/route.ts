@@ -17,6 +17,8 @@ export async function POST(req: NextRequest) {
             line_items: cart,
             mode: 'payment',
             return_url: `${req.headers.get('origin')}/order-confirmation?session_id={CHECKOUT_SESSION_ID}`,
+            billing_address_collection: 'auto',
+            automatic_tax: { enabled: true }, // Enables automatic tax calculations
           });
 
         // Return to Stripe client secret in order mount checkout component
@@ -42,7 +44,6 @@ export async function GET(req: NextRequest) {
         const session = await stripe.checkout.sessions.retrieve(sessionId);
         const lineItems = await stripe.checkout.sessions.listLineItems(sessionId);
 
-        console.log(session)
         // Define properties to return to client
         const body = JSON.stringify({
             status: session.status,

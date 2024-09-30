@@ -7,7 +7,7 @@ import { createCart } from "@/lib/helpers";
 import { saveCartToSession } from "@/lib/security";
 import { Loader2 } from "lucide-react";
 
-export default function CheckoutForm({ dpmCheckerLink }: { dpmCheckerLink: string }) {
+export default function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
   const [message, setMessage] = useState(null);

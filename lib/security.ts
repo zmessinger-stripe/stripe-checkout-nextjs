@@ -1,11 +1,11 @@
-import { Cart } from "@/app/types";
-import { v4 as uuidv4 } from 'uuid';
+import { CartProps } from "@/app/types";
+
 
 // Import Encryption Key
 const ENCRYPTION_KEY = "SECRET_KEY_1234"
 
 // Function to encrypt the cart
-export function encryptCart(cart: Cart): string {
+export function encryptCart(cart: CartProps): string {
     const cartString = JSON.stringify(cart);
     let encrypted = '';
 
@@ -18,7 +18,7 @@ export function encryptCart(cart: Cart): string {
 }
 
 // Function to decrypt the cart
-export function decryptCart(encryptedCart: string): Cart {
+export function decryptCart(encryptedCart: string): CartProps {
     const decoded = atob(encryptedCart); // Convert from base64
     let decrypted = '';
 
@@ -31,13 +31,13 @@ export function decryptCart(encryptedCart: string): Cart {
 }
 
 // Function to save the cart to sessionStorage
-export function saveCartToSession(cart: Cart): void {
+export function saveCartToSession(cart: CartProps): void {
     const encryptedCart = encryptCart(cart);
     sessionStorage.setItem('cart', encryptedCart);
 }
 
 // Function to load the cart from sessionStorage
-export function loadCartFromSession(): Cart | null {
+export function loadCartFromSession(): CartProps | null {
     const encryptedCart = sessionStorage.getItem('cart');
     return encryptedCart ? decryptCart(encryptedCart) : null;
 }

@@ -2,15 +2,10 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { RefreshCw } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card"
-import { Cart, CartItem } from '@/app/types';
+import { CartItemProps, CartCardComponentProps } from '@/app/types';
 import { Loader2 } from "lucide-react"
 
-interface CartCardProps {
-	cart: Cart;
-	refreshCart: () => void;
-}
-
-const CartCard: React.FC<CartCardProps> = ({ cart, refreshCart }) => {
+const CartCard: React.FC<CartCardComponentProps> = ({ cart, refreshCart }) => {
     return (
         <div className="w-full max-w-4xl mb-8">
 				<Card className="w-full">
@@ -22,7 +17,7 @@ const CartCard: React.FC<CartCardProps> = ({ cart, refreshCart }) => {
                                 <Loader2 className="h-4 w-4 animate-spin" />
                             </div>
 						) : (
-							cart.map((item: CartItem, id: number) => (
+							cart.map((item: CartItemProps, id: number) => (
                                 <Badge key={id} variant="secondary" className="whitespace-nowrap">
                                     {item.price} x {item.quantity}
                                 </Badge>
