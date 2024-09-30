@@ -27,10 +27,12 @@ export default function Embedded() {
 	const options = { fetchClientSecret };
 
 	return (
-		<div id="checkout">
-		<EmbeddedCheckoutProvider stripe={stripePromise} options={options}>
-			<EmbeddedCheckout />
-		</EmbeddedCheckoutProvider>
+		<div className="min-h-screen bg-gray-900 flex items-center justify-center p-4">
+			<div className="w-full max-w-[1000px] bg-white rounded-lg shadow-lg overflow-hidden">
+				<EmbeddedCheckoutProvider stripe={stripePromise} options={options}>
+					<EmbeddedCheckout className="w-full" />
+				</EmbeddedCheckoutProvider>
+			</div>
 		</div>
 	)
 }

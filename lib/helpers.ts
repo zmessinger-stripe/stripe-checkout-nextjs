@@ -1,5 +1,5 @@
 import { Cart, FetchCartResponse, UpdatedCartItem } from "@/app/types";
-
+import { v4 as uuidv4 } from 'uuid';
 // Import the Stripe library if not already imported
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
@@ -57,14 +57,49 @@ export async function fetchCart(cart: Cart): Promise<FetchCartResponse> {
 */
 
 export const createCart = () => {
-    let prices = ["price_1Q3ojSBFIW304bYi5KqP7yKT", "price_1Q3NdpBFIW304bYiRQbdephu"];
+    const prices = ["price_1Q3ojSBFIW304bYi5KqP7yKT", "price_1Q3NdpBFIW304bYiRQbdephu"];
     let cart: Cart = []
-
+    
     // Randomly generate a quantity betweeen 0 and 3 for each item
     prices.forEach(price => {
         let quantity = Math.floor(Math.random() * 4) + 1;
         cart.push({ price, quantity })
     })
-
+    
+    // Generate 'cart_id' and store in session storage.
+    createCartId()
+    // Return cart
     return cart
+}
+
+
+/**
+ * Generates a unique cart identifier to store in sessionStorage. Carts will 
+ *
+ * @param {null}
+ * @returns {void}
+ *
+ * @example
+ * // returns 'cart_12345'
+ * // generateCartId({ });
+ */
+
+export function createCartId(): void {
+    const cartId =  `cart_${uuidv4()}`;
+    sessionStorage.setItem('cart_id', cartId)
+}
+
+/**
+ * Generates a order number to be attached to the cart 
+ *
+ * @param {null}
+ * @returns {string} Returns the generated order number
+ *
+ * @example
+ * // returns 'order_12345'
+ * // createOrderNumber();
+ */
+
+export function createOrderNumber(): string {
+    return `order_${uuidv4()}`
 }

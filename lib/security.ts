@@ -1,4 +1,6 @@
 import { Cart } from "@/app/types";
+import { v4 as uuidv4 } from 'uuid';
+
 // Import Encryption Key
 const ENCRYPTION_KEY = "SECRET_KEY_1234"
 

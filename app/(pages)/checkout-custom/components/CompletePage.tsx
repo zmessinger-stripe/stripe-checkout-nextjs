@@ -1,6 +1,6 @@
 "use client"
 
-import React from "react";
+import { useState, useEffect } from "react";
 import {
   useStripe,
 } from "@stripe/react-stripe-js";
@@ -47,28 +47,21 @@ const STATUS_CONTENT_MAP = {
 
 export default function CompletePage() {
   const stripe = useStripe();
+  const [status, setStatus] = useState("default");
+  const [intentId, setIntentId] = useState(null);
 
-  const [status, setStatus] = React.useState("default");
-  const [intentId, setIntentId] = React.useState(null);
-
-  React.useEffect(() => {
-    if (!stripe) {
-      return;
-    }
+  useEffect(() => {
+    if (!stripe) return;
     
     const clientSecret = new URLSearchParams(window.location.search).get(
       "payment_intent_client_secret"
     );
 
-    if (!clientSecret) {
-      return;
-    }
+    if (!clientSecret) return;
 
     stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
-      if (!paymentIntent) {
-        return;
-      }
-      
+      if (!paymentIntent) return;
+      console.log(paymentIntent)
       setStatus(paymentIntent.status);
       setIntentId(paymentIntent.id);
     });

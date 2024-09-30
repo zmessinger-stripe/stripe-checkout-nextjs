@@ -24,6 +24,7 @@ const OrderConfirmationPage = () => {
 					return;
 				}
 				const response = await axios.get(`/api/checkout_sessions_embedded?session_id=${sessionId}`);
+				console.log(response)
 				// If session state is open, redirect root path.
 				if (response.data.status === 'open') {
 					router.push('/');

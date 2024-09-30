@@ -42,13 +42,16 @@ export async function GET(req: NextRequest) {
         const session = await stripe.checkout.sessions.retrieve(sessionId);
         const lineItems = await stripe.checkout.sessions.listLineItems(sessionId);
 
+        console.log(session)
         // Define properties to return to client
         const body = JSON.stringify({
             status: session.status,
             orderId: "ORD-12345",
             name: session.customer_details.name,
             email: session.customer_details.email,
-            total: session.amount_subtotal,
+            subTotal: session.amount_subtotal,
+            tax: session.total_details.amount_tax,
+            total: session.amount_total,
             lineItems: lineItems.data,
             date: new Date().toLocaleDateString(),
         })

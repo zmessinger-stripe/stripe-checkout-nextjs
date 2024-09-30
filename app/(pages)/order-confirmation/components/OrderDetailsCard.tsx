@@ -28,11 +28,21 @@ const OrderDetailsCard = ({ orderDetails }: { orderDetails: OrderDetails }) => (
                 <div>
                     <h3 className="font-semibold">Items</h3>
                     {orderDetails.lineItems.map((item, index) => (
-                    <div key={index} className="flex justify-between">
-                        <span>{item.description}</span>
-                        <span>{formatStripeAmount(item.amount_total)}</span>
-                    </div>
+                        <div key={index} className="flex justify-between">
+                            <span>{item.description}</span>
+                            <span>{formatStripeAmount(item.amount_total)}</span>
+                        </div>
                     ))}
+                    <div className="flex justify-between">
+                        <span>Subtotal</span>
+                        <span>{formatStripeAmount(orderDetails.subTotal)}</span>
+                    </div>
+                </div>
+                
+                <Separator />
+                <div className="flex justify-between">
+                    <span className="font-semibold">Tax</span>
+                    <span>{formatStripeAmount(orderDetails.tax)}</span>
                 </div>
                 <Separator />
                 <div className="flex justify-between font-semibold">

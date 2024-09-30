@@ -6,7 +6,7 @@ import { Cart } from '@/app/types';
 import Header from "./components/Header"
 import CartCard from './components/CartCard';
 import CheckoutCard from './components/CheckoutCard';
-import { saveCartToSession,  loadCartFromSession} from '@/lib/security';
+import { saveCartToSession,  loadCartFromSession } from '@/lib/security';
 // Static options for conditionally rendering the buttons
 const options = [
   {
@@ -32,9 +32,9 @@ const options = [
 export default function Home() {
 	const [cart, setCart] = useState<Cart>([])
 
-	// Load Cart
 	useEffect(() => {
 		if (!sessionStorage.getItem('cart')) {
+			// Set cartId and cart
 			const cart = createCart();
 			saveCartToSession(cart)
 			setCart(cart)

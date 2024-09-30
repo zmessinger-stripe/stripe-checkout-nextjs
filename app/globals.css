@@ -81,3 +81,18 @@ body {
   color: #96f;
   font-weight: bold;
 }
+
+/* Adjust the EmbeddedCheckout container */
+#checkout {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Target Stripe's iframe to adjust its appearance */
+#checkout iframe {
+  width: 100% !important;
+  min-height: 600px !important;
+  background: transparent !important;
+}

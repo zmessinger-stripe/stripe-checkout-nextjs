@@ -16,6 +16,8 @@ export async function POST(request: NextRequest) {
 			mode: 'payment',
 			success_url: `${request.headers.get('origin')}/order-confirmation?session_id={CHECKOUT_SESSION_ID}`,
 			cancel_url: `${request.headers.get('origin')}/?canceled=true`,
+			automatic_tax: { enabled: true }, // Enables automatic tax calculations
+			billing_address_collection: "required"
 		});
 
 		return Response.redirect(session.url, 303);
