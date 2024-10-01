@@ -31,7 +31,7 @@ export const CartSection = ({ cart, amount, surcharge, subtotal }: CartSectionCo
                             </div>
                         )
                     })}
-                    {surcharge > 0 ? (
+                    {surcharge && surcharge > 0 ? (
                         <>
                             <Separator className="bg-gray-600" />
                             <div className="flex justify-between font-bold">

@@ -49,7 +49,7 @@ export interface OrderDetailsProps {
     subTotal: number;
     tax: number;
     total: number;
-    lineItems: Array<{ description: string; amount_total: number }>;
+    lineItems: Array<{ description: string; amount: number }>;
 }
 
 /**

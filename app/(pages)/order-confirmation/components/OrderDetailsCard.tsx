@@ -30,7 +30,7 @@ export const OrderDetailsCard = ({ orderDetails }: { orderDetails: OrderDetailsP
                     {orderDetails.lineItems.map((item, index) => (
                         <div key={index} className="flex justify-between">
                             <span>{item.description}</span>
-                            <span>{formatStripeAmount(item.amount_total)}</span>
+                            <span>{formatStripeAmount(item.amount)}</span>
                         </div>
                     ))}
                     <div className="flex justify-between">

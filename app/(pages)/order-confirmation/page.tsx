@@ -17,19 +17,21 @@ const OrderConfirmationPage = () => {
 		const urlParams = new URLSearchParams(window.location.search);
 		return {
 			sessionId: urlParams.get('session_id'),
-			piClientSecret: urlParams.get('payment_intent_client_secret')
+			paymentIntent: urlParams.get('payment_intent')
 		};
 	  };
 
 	useEffect(() => {
-		async function fetchOrderData(parameter: string) {
+		async function fetchOrderData(endpoint: string) {
 			try {
-				const response = await axios.get(`/api/get-order-details?${parameter}`);
+				const response = await axios.get(endpoint);
 				// If session state is open, redirect root path.
 				if (response.data.status === 'open') {
 					router.push('/');
 					return;
 				}
+
+				console.log(response.data)
 				setOrderDetails(response.data);
 			} catch (error) {
 				console.error('Error fetching session data:', error);
@@ -39,12 +41,12 @@ const OrderConfirmationPage = () => {
 		}
 		
 		// Retrieve query parameters
-		const { sessionId, piClientSecret } = retrieveQueryParameters()
+		const { sessionId, paymentIntent } = retrieveQueryParameters()
 		// Determine which query paramter to attach to the API endpoint.
 		if (sessionId) {
-			fetchOrderData(`session_id=${sessionId}`);
-		} else if (piClientSecret) {
-			fetchOrderData(`payment_intent_client_secret=${piClientSecret}`);
+			fetchOrderData(`/api/get-order-by-session??session_id=${sessionId}`);
+		} else if (paymentIntent) {
+			fetchOrderData(`/api/get-order-by-payment-intent?payment_intent=${paymentIntent}`);
 		} else {
 			router.push("/");
 		}

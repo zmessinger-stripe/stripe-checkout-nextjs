@@ -1,12 +1,12 @@
 "use client"
 
 import { useState } from "react";
-import { PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import { PaymentElement, useStripe, useElements, AddressElement } from "@stripe/react-stripe-js";
 import { Button } from "@/components/ui/button";
 import { createCart } from "@/lib/helpers";
 import { saveCartToSession } from "@/lib/security";
 import { Loader2 } from "lucide-react";
-import { StripePaymentElementOptions } from '@stripe/stripe-js';
+import { StripePaymentElementOptions, StripeAddressElementOptions } from '@stripe/stripe-js';
 import axios from "axios";
 import { CheckoutFormComponentProps } from "@/app/types";
 import { loadCartFromSession } from "@/lib/security";
@@ -17,7 +17,7 @@ export default function CheckoutForm({ deferredIntent, handleChange }: CheckoutF
     const [message, setMessage] = useState<string | undefined>(undefined);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     // Return URL for successful payment via Stripe
-    const return_url = "http://localhost:3000/checkout-custom"
+    const return_url = "http://localhost:3000/order-confirmation"
 
   const handleError = (error: any) => {
     setIsLoading(false);
@@ -32,7 +32,7 @@ export default function CheckoutForm({ deferredIntent, handleChange }: CheckoutF
         if (!stripe || !elements) return;
         // Enable loading state
         setIsLoading(true);
-
+        console.log(elements)
         const { error } = await stripe.confirmPayment({ elements, confirmParams: { return_url } });
 
         // This point will only be reached if there is an immediate error when
@@ -89,16 +89,21 @@ export default function CheckoutForm({ deferredIntent, handleChange }: CheckoutF
     }
   };
 
-  const paymentElementOptions: StripePaymentElementOptions = { layout: "tabs" };
+    // Init Stripe Element Settings
+    const paymentElementOptions: StripePaymentElementOptions = { layout: "tabs" };
+    const addressElementOptions: StripeAddressElementOptions = { mode: 'billing' };
 
-  return (
-    <form id="payment-form" onSubmit={deferredIntent ? handleSubmitDeferred : handleSubmit} className="w-full">
-        <PaymentElement id="payment-element" options={paymentElementOptions} onChange={(event) => {if (handleChange) handleChange(event, elements, stripe)}}/>
-        {/* Show any error or success messages */}
-        {message && <div id="payment-message" className="mt-4 text-sm text-red-600">{message}</div>}
-        <Button disabled={isLoading} className="w-full mt-6 bg-black hover:bg-gray-800 text-white rounded text-lg">
-            {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : "Pay"}
-        </Button>
-    </form>
-  );
+    return (
+        <form id="payment-form" onSubmit={deferredIntent ? handleSubmitDeferred : handleSubmit} className="w-full">
+            {/* Stripe Payment Element */}
+            <PaymentElement id="payment-element" options={paymentElementOptions} onChange={(event) => {if (handleChange) handleChange(event, elements, stripe)}}/>
+            {/* Stripe Address Element */}
+            <AddressElement options={addressElementOptions} className="mt-4"/>
+            {/* Show any error or success messages */}
+            {message && <div id="payment-message" className="mt-4 text-sm text-red-600">{message}</div>}
+            <Button disabled={isLoading} className="w-full mt-6 bg-black hover:bg-gray-800 text-white rounded text-lg">
+                {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : "Pay"}
+            </Button>
+        </form>
+    );
 }
