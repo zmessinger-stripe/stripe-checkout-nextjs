@@ -8,7 +8,7 @@ import { OrderDetailsCard } from './components/OrderDetailsCard';
 import { OrderDetailsProps } from "@/app/types";
 
 const OrderConfirmationPage = () => {
-	const [isLoading, setIsLoading] = useState(true);
+	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const [orderDetails, setOrderDetails] = useState<OrderDetailsProps | null>(null);
 	const router = useRouter();
 
@@ -40,7 +40,7 @@ const OrderConfirmationPage = () => {
 		
 		// Retrieve query parameters
 		const { sessionId, piClientSecret } = retrieveQueryParameters()
-
+		// Determine which query paramter to attach to the API endpoint.
 		if (sessionId) {
 			fetchOrderData(`session_id=${sessionId}`);
 		} else if (piClientSecret) {
