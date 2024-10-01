@@ -12,19 +12,19 @@ const OrderConfirmationPage = () => {
 	const [orderDetails, setOrderDetails] = useState<OrderDetailsProps | null>(null);
 	const router = useRouter();
 
+	const retrieveQueryParameters = () => {
+		// Retrieves query parameters for fetching orders from server
+		const urlParams = new URLSearchParams(window.location.search);
+		return {
+			sessionId: urlParams.get('session_id'),
+			piClientSecret: urlParams.get('payment_intent_client_secret')
+		};
+	  };
+
 	useEffect(() => {
-		async function fetchSessionData() {
+		async function fetchOrderData(parameter: string) {
 			try {
-				const queryString = window.location.search;
-				const urlParams = new URLSearchParams(queryString);
-				const sessionId = urlParams.get('session_id');
-				// If sessionId doesn't exist as a query parameter, redirect root path..
-				if (!sessionId) {
-					router.push("/");
-					return;
-				}
-				const response = await axios.get(`/api/checkout_sessions_embedded?session_id=${sessionId}`);
-				console.log(response)
+				const response = await axios.get(`/api/get-order-details?${parameter}`);
 				// If session state is open, redirect root path.
 				if (response.data.status === 'open') {
 					router.push('/');
@@ -37,8 +37,18 @@ const OrderConfirmationPage = () => {
 				setIsLoading(false);
 			}
 		}
+		
+		// Retrieve query parameters
+		const { sessionId, piClientSecret } = retrieveQueryParameters()
 
-		fetchSessionData();
+		if (sessionId) {
+			fetchOrderData(`session_id=${sessionId}`);
+		} else if (piClientSecret) {
+			fetchOrderData(`payment_intent_client_secret=${piClientSecret}`);
+		} else {
+			router.push("/");
+		}
+
 	}, [router]);
 
 	// If data is loading, return skeleton placeholder.

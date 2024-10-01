@@ -34,7 +34,7 @@ export default function CheckoutPage() {
                 setIsLoading(true);
                 let cart = loadCartFromSession();
                 const response = await axios.post("/api/create-checkout-cart", { cart });
-                // Update component state
+                // Update componenet state
                 setCurrency(response.data.currency)
                 setAmount(response.data.amount)
                 setSubtotal(response.data.amount)
