@@ -1,3 +1,5 @@
+import { StripePaymentElementChangeEvent, StripeElements, Stripe } from '@stripe/stripe-js';
+
 /**
 |--------------------------------------------------
 | Normal Props
@@ -65,4 +67,16 @@ export interface CheckoutCardComponentProps {
 export interface CartCardComponentProps {
 	cart: CartProps;
 	refreshCart: () => void;
+}
+
+export interface CheckoutFormComponentProps {
+    deferredIntent: boolean;
+    handleChange?: (event: StripePaymentElementChangeEvent, elements: StripeElements | null, stripe: Stripe | null) => Promise<void>;
+}
+
+export interface CartSectionComponenetProps {
+    cart: UpdatedCartItemProps[]; 
+    amount: number;
+    surcharge?: number;
+    subtotal: number
 }

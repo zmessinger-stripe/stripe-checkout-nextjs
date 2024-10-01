@@ -14,7 +14,6 @@ import { CartSection } from "./components/CartSection";
 import { CartSectionSkeleton } from "./components/CartSectionSkeleton";
 import { Appearance, StripeElementsOptions } from '@stripe/stripe-js';
 
-
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string);
 
 export default function CheckoutPage() {
@@ -70,7 +69,7 @@ export default function CheckoutPage() {
                             </div>
                         ) : clientSecret ? (
                                 <Elements options={options} stripe={stripePromise}>
-                                    {confirmed ? <CompletePage /> : <CheckoutForm />}
+                                    {confirmed ? <CompletePage /> : <CheckoutForm deferredIntent={false} />}
                                 </Elements>
                             ) : (
                                 <div className="text-center text-red-500">Failed to load checkout. Please try again.</div>

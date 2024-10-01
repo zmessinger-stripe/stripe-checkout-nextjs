@@ -2,11 +2,10 @@ import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator"
-import { UpdatedCartItemProps } from "@/app/types";
+import { CartSectionComponenetProps } from "@/app/types";
 import { formatStripeAmount } from "@/lib/formatters";
 
-export const CartSection = ({ cart, amount }: { cart: UpdatedCartItemProps[], amount: number}) => {
-    console.log(cart, amount)
+export const CartSection = ({ cart, amount, surcharge, subtotal }: CartSectionComponenetProps) => {
     return (
         <div className="w-1/2 bg-black p-8 text-white">
             <Link href="/" className="absolute top-4 left-4">
@@ -32,10 +31,19 @@ export const CartSection = ({ cart, amount }: { cart: UpdatedCartItemProps[], am
                             </div>
                         )
                     })}
+                    {surcharge > 0 ? (
+                        <>
+                            <Separator className="bg-gray-600" />
+                            <div className="flex justify-between font-bold">
+                                <span>Credit Card Fee (10%)</span>
+                                <span>{formatStripeAmount(surcharge)}</span>
+                            </div>
+                        </>
+                    ) : null}
                     <Separator className="bg-gray-600" />
                     <div className="flex justify-between font-bold">
                         <span>Total</span>
-                        <span>{formatStripeAmount(amount)}</span>
+                        <span>{formatStripeAmount(subtotal)}</span>
                     </div>
                 </div>
                 

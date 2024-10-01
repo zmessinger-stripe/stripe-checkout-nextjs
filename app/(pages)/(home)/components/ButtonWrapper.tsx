@@ -22,6 +22,12 @@ const ButtonWrapper = (option: string, action: string, cart: CartProps, children
                     {children}
                 </Link>
             )
+        case 'deferred':
+            return (
+                <Link href="/checkout-custom/deferred" className="w-1/2">
+                    {children}
+                </Link>
+            )
         default:
             return (
                 <Link href="/checkout-custom" className="w-1/2">

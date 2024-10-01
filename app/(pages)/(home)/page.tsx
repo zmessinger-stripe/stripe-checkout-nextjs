@@ -34,7 +34,7 @@ const options = [
     title: "Deferred",
     description: "Explore a a checkout form with Stripe's Web or Mobile elements to accept payments. This option covers creating the payment intent submition payment element.",
     buttonText: "Select Option",
-	action: "/checkout-embedded",
+	action: "/checkout-custom/deferred",
     link: "https://docs.stripe.com/payments/accept-a-payment-deferred?platform=web&type=payment#web-fulfillment"
   },
 ]
