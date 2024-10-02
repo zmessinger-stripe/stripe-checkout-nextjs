@@ -31,7 +31,6 @@ const OrderConfirmationPage = () => {
 					return;
 				}
 
-				console.log(response.data)
 				setOrderDetails(response.data);
 			} catch (error) {
 				console.error('Error fetching session data:', error);

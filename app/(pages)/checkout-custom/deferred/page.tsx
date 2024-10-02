@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "../components/CheckoutForm";
-import CompletePage from "../components/CompletePage";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Loader2 } from "lucide-react";
 import axios from "axios";
@@ -99,8 +98,8 @@ export default function CheckoutPage() {
                             </div>
                         ) : 
                         (<Elements options={options} stripe={stripePromise}>
-                                {confirmed ? <CompletePage /> : <CheckoutForm deferredIntent={true} handleChange={handlePaymentElementChange}/>}
-                            </Elements>
+                            <CheckoutForm deferredIntent={true} handleChange={handlePaymentElementChange}/>
+                        </Elements>
                         )}
                     </CardContent>
                 </Card>
