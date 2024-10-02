@@ -37,21 +37,10 @@ This Next.js application is designed to test and demonstrate various Stripe chec
 
 ## Setup and Installation
 
-1. Clone the repository:
-
-`git clone https://github.com/your-username/stripe-checkout-tester.git`
-
-2. Install dependencies:
-
-`cd stripe-checkout-tester npm install`
-
-3. Set up environment variables:
-   Create a `.env.local` file in the root directory and add your Stripe API keys:
-
-4. Run the development server:
-
-`npm run dev`
-
+1. Clone the repository: `git clone https://github.com/your-username/stripe-checkout-tester.git`
+2. Install dependencies: `cd stripe-checkout-tester npm install`
+3. Create a `.env` file in the root directory and add your Stripe API keys. Refer to `.env.example`.
+4. Run the development server:`npm run dev`
 5. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
 
 ## Contributing

@@ -20,12 +20,7 @@ export default function CheckoutPage() {
     const [amount, setAmount] = useState<number>(0);
     const [subTotal, setSubtotal] = useState<number>(0);
     const [cart, setCart] = useState<UpdatedCartItemProps[]>([])
-    const [confirmed, setConfirmed] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(true);
-
-    useEffect(() => {
-        setConfirmed(!!new URLSearchParams(window.location.search).get("payment_intent_client_secret"));
-    }, []);
 
     useEffect(() => {
         async function fetchClientSecret(){
